@@ -1,0 +1,11 @@
+Excel.LaunchExcel.LaunchAndOpenUnderExistingProcess Path: $'''C:\\MeWeTagReferences\\namess.xlsx''' Visible: False ReadOnly: False Instance=> ExcelInstance
+SET index TO 1
+Excel.ReadFromExcel.ReadCell Instance: ExcelInstance StartColumn: $'''a''' StartRow: index ReadAsText: False CellValue=> ExcelData
+LOOP WHILE (ExcelData) <> ($'''end''')
+MouseAndKeyboard.SendKeys.FocusAndSendKeys TextToSend: $'''@%ExcelData%''' DelayBetweenKeystrokes: 0 SendTextAsHardwareKeys: False
+WAIT 1
+MouseAndKeyboard.SendKeys.FocusAndSendKeys TextToSend: $'''{Return}''' DelayBetweenKeystrokes: 25 SendTextAsHardwareKeys: False
+Variables.IncreaseVariable Value: index IncrementValue: 1
+Excel.ReadFromExcel.ReadCell Instance: ExcelInstance StartColumn: $'''a''' StartRow: index ReadAsText: False CellValue=> ExcelData
+END
+Excel.CloseExcel.Close Instance: ExcelInstance
